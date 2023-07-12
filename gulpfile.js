@@ -3,9 +3,12 @@ const gulp = require('gulp')
 const concat = require('gulp-concat')
 const cssmin = require('gulp-cssmin')
 const rename = require('gulp-rename')
+const image = require('gulp-image')
 const uglify = require('gulp-uglify')
 const htmlmin = require('gulp-htmlmin')
 const babel = require('gulp-babel')
+const browserSync = require('browser-sync').create()
+const reload = browserSync.reload
 
 function tarefasCSS(callback) {
 
@@ -70,9 +73,27 @@ function tarefasHTML(callback){
     return callback()
 }
 
+gulp.task('serve', function(){
+
+    browserSync.init({
+        server: {
+            baseDir: "./dist"
+        }
+    })
+    gulp.watch('./src/**/*').on('change', process)
+    gulp.watch('./src/**/*').on('change', reload)
+
+
+})
+function end(cb){
+    console.log("tarefas concluídas")
+}
+
+const process = series ( tarefasHTML, tarefasJS, tarefasCSS )
 
 exports.styles = tarefasCSS
 exports.scripts = tarefasJS
 exports.images = tarefasImagem
 
-exports.default = parallel ( tarefasHTML, tarefasJS, tarefasCSS )
+
+exports.default = process
