@@ -87,6 +87,7 @@ gulp.task('serve', function(){
 })
 function end(cb){
     console.log("tarefas concluídas")
+    return cb()
 }
 
 const process = series ( tarefasHTML, tarefasJS, tarefasCSS )
