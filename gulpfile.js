@@ -3,8 +3,8 @@ const gulp = require('gulp')
 const concat = require('gulp-concat')
 const cssmin = require('gulp-cssmin')
 const rename = require('gulp-rename')
-const image = require('gulp-image')
 const uglify = require('gulp-uglify')
+const image = require('gulp-image')
 const htmlmin = require('gulp-htmlmin')
 const babel = require('gulp-babel')
 const browserSync = require('browser-sync').create()
@@ -29,7 +29,7 @@ function tarefasCSS(callback) {
 
 function tarefasJS(callback){
 
-    gulp.src(['./node_modules/jquery/dist/jquery.js',
+    gulp.src(['./node_modules/jquery/digist/jquery.js',
     './node_modules/bootstrap/dist/js/bootstrap.js',
     './vendor/owl/js/owl.js',
     './vendor/jquerymask/jquery.mask.min.js',
