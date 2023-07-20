@@ -4,8 +4,11 @@ const concat = require('gulp-concat')
 const cssmin = require('gulp-cssmin')
 const rename = require('gulp-rename')
 const uglify = require('gulp-uglify')
+const image = require('gulp-imagemin')
 const htmlmin = require('gulp-htmlmin')
 const babel = require('gulp-babel')
+const browserSync = require('browser-sync').create()
+const reload = browserSync.reload
 
 function tarefasCSS(callback) {
 
@@ -26,7 +29,7 @@ function tarefasCSS(callback) {
 
 function tarefasJS(callback){
 
-    gulp.src(['./node_modules/jquery/dist/jquery.js',
+    gulp.src(['./node_modules/jquery/digist/jquery.js',
     './node_modules/bootstrap/dist/js/bootstrap.js',
     './vendor/owl/js/owl.js',
     './vendor/jquerymask/jquery.mask.min.js',
@@ -46,7 +49,7 @@ function tarefasJS(callback){
 
 function tarefasImagem(){
 
-    return gulp.src('./src/images/*')
+    gulp.src('./src/images/*')
         .pipe(image({
             pngquant: true,
             optipng: false,
@@ -70,9 +73,28 @@ function tarefasHTML(callback){
     return callback()
 }
 
+gulp.task('serve', function(){
+
+    browserSync.init({
+        server: {
+            baseDir: "./dist"
+        }
+    })
+    gulp.watch('./src/**/*').on('change', process)
+    gulp.watch('./src/**/*').on('change', reload)
+
+
+})
+function end(cb){
+    console.log("tarefas concluídas")
+    return cb()
+}
+
+const process = parallel ( tarefasHTML, tarefasJS, tarefasCSS )
 
 exports.styles = tarefasCSS
 exports.scripts = tarefasJS
 exports.images = tarefasImagem
 
-exports.default = parallel ( tarefasHTML, tarefasJS, tarefasCSS )
+
+exports.default = process
