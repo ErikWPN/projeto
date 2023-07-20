@@ -4,7 +4,7 @@ const concat = require('gulp-concat')
 const cssmin = require('gulp-cssmin')
 const rename = require('gulp-rename')
 const uglify = require('gulp-uglify')
-const image = require('gulp-image')
+const image = require('gulp-imagemin')
 const htmlmin = require('gulp-htmlmin')
 const babel = require('gulp-babel')
 const browserSync = require('browser-sync').create()
@@ -49,7 +49,7 @@ function tarefasJS(callback){
 
 function tarefasImagem(){
 
-    return gulp.src('./src/images/*')
+    gulp.src('./src/images/*')
         .pipe(image({
             pngquant: true,
             optipng: false,
@@ -90,7 +90,7 @@ function end(cb){
     return cb()
 }
 
-const process = series ( tarefasHTML, tarefasJS, tarefasCSS )
+const process = parallel ( tarefasHTML, tarefasJS, tarefasCSS )
 
 exports.styles = tarefasCSS
 exports.scripts = tarefasJS
