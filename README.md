@@ -110,3 +110,6 @@ function validate(elem){
             })
 
 ´´´
+
+### Para iniciar o projeto
+- rode o code 'npm install' logo apos 'gulp'. 
